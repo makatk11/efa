@@ -349,10 +349,11 @@
     <p class="hero-sub">efa connects you with financial educators for real, judgment-free conversations about budgeting, debt, investing, and building the future you want.</p>
 
     <div class="email-form" id="hero-form">
-      <input type="email" placeholder="your@email.com" id="hero-email"/>
+      <input type="email" placeholder="your@email.com" id="hero-email" name="email"/>
       <button class="cta-btn" onclick="handleSignup('hero')">Get Early Access</button>
     </div>
     <div class="success-msg" id="hero-success">You're on the list. We'll be in touch soon.</div>
+    <div class="success-msg" id="hero-error" style="color:#C47C5A;">Something went wrong. Please try again.</div>
 
     <div class="social-proof">
       <div class="avatars">
@@ -496,17 +497,18 @@
   <h2>Be the first to know<br/>when we launch.</h2>
   <p>We're building efa in public. Join the waitlist and help shape what we build.</p>
   <div class="cta-row" id="cta-row">
-    <input type="email" placeholder="your@email.com" id="cta-email"/>
+    <input type="email" placeholder="your@email.com" id="cta-email" name="email"/>
     <button onclick="handleSignup('cta')">Join the Waitlist</button>
   </div>
   <div class="success-msg" id="cta-success" style="color: #A8D5B5;">You're in. We'll reach out soon.</div>
+  <div class="success-msg" id="cta-error" style="color:#E8C4B8;">Something went wrong. Please try again.</div>
   <p class="cta-note">No spam. No selling your data. Just updates on our launch.</p>
 </div>
 
 <footer>
   <div class="logo" style="font-size:20px;">efa<span class="logo-dot" style="font-size:24px;">.</span></div>
   <div>Education For All &middot; &copy; 2026</div>
-  <div>hello@joinefa.com</div>
+  <div><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e78f828b8b88a78d888e89828186c984888a">[email&#160;protected]</a></div>
 </footer>
 
 <script>
@@ -517,16 +519,28 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  function handleSignup(source) {
-    const email = document.getElementById(source === 'hero' ? 'hero-email' : 'cta-email').value;
+  async function handleSignup(source) {
+    const emailId = source === 'hero' ? 'hero-email' : 'cta-email';
+    const email = document.getElementById(emailId).value;
     if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
-    if (source === 'hero') {
-      document.getElementById('hero-form').style.display = 'none';
-    } else {
-      document.getElementById('cta-row').style.display = 'none';
+
+    try {
+      const res = await fetch('https://formspree.io/f/xdallzql', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, source: source === 'hero' ? 'Hero form' : 'CTA form' })
+      });
+
+      if (res.ok) {
+        document.getElementById(source === 'hero' ? 'hero-form' : 'cta-row').style.display = 'none';
+        document.getElementById(source + '-success').style.display = 'block';
+      } else {
+        document.getElementById(source + '-error').style.display = 'block';
+      }
+    } catch(e) {
+      document.getElementById(source + '-error').style.display = 'block';
     }
-    document.getElementById(source + '-success').style.display = 'block';
   }
-</script>
+
 </body>
 </html>
