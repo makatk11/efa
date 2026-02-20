@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>efa -- Education For All</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1A1714;
+    --paper: #FAF7F2;
+    --sage: #4A7C59;
+    --sage-light: #EAF1EC;
+    --blush: #E8C4B8;
+    --blush-light: #FDF0EC;
+    --warm: #C47C5A;
+    --muted: #8A8880;
+    --border: #E2DDD6;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 48px;
+    background: rgba(250,247,242,0.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: baseline;
+  }
+  .logo-dot { color: var(--sage); font-size: 30px; line-height: 1; }
+  .nav-pill {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 99px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .nav-pill:hover { background: var(--sage); }
+
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 55%; height: 100%;
+    background: linear-gradient(140deg, var(--blush-light) 0%, var(--paper) 65%);
+    z-index: 0;
+  }
+
+  .hero-left {
+    padding: 80px 48px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--sage);
+  }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(44px, 5vw, 68px);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+    margin-bottom: 26px;
+  }
+  h1 em { font-style: italic; color: var(--sage); }
+
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #5A5550;
+    max-width: 440px;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+
+  .email-form { display: flex; gap: 10px; max-width: 440px; }
+  .email-form input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .email-form input:focus { border-color: var(--sage); box-shadow: 0 0 0 3px rgba(74,124,89,0.1); }
+  .email-form input::placeholder { color: var(--muted); }
+  .cta-btn {
+    padding: 14px 24px;
+    background: var(--sage);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .cta-btn:hover { background: #3a6347; transform: translateY(-1px); }
+
+  .social-proof {
+    margin-top: 26px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .avatars { display: flex; }
+  .avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--paper);
+    margin-left: -8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+  }
+  .avatars .avatar:first-child { margin-left: 0; }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-stack { position: relative; width: 320px; height: 420px; }
+
+  .educator-card {
+    position: absolute;
+    width: 300px;
+    background: #fff;
+    border-radius: 22px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+    animation: float 6s ease-in-out infinite;
+  }
+  .educator-card:nth-child(1) { top: 0; left: 20px; animation-delay: 0s; z-index: 3; }
+  .educator-card:nth-child(2) { top: 30px; left: 0; transform: rotate(-3deg); z-index: 2; animation-delay: -2s; opacity: 0.7; }
+  .educator-card:nth-child(3) { top: 55px; left: 10px; transform: rotate(4deg); z-index: 1; animation-delay: -4s; opacity: 0.4; }
+
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .educator-card:nth-child(2) { animation-name: float2; }
+  @keyframes float2 { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-3deg) translateY(-6px); } }
+
+  .card-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+  }
+  .card-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 3px; color: var(--ink); }
+  .card-specialty { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 18px; }
+  .tag { padding: 4px 10px; background: var(--sage-light); color: var(--sage); border-radius: 99px; font-size: 11px; font-weight: 600; font-family: 'Syne', sans-serif; }
+  .card-rate { display: flex; justify-content: space-between; align-items: center; }
+  .rate-num { font-family: 'Instrument Serif', serif; font-size: 26px; color: var(--ink); }
+  .rate-label { font-size: 12px; color: var(--muted); }
+  .book-btn { padding: 9px 16px; background: var(--sage); color: #fff; border: none; border-radius: 10px; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; }
+
+  .divider-band {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 18px 80px;
+    display: flex;
+    gap: 52px;
+    align-items: center;
+    overflow: hidden;
+  }
+  .ticker-item { display: flex; align-items: center; gap: 10px; white-space: nowrap; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .ticker-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blush); flex-shrink: 0; }
+
+  section { padding: 100px 80px; }
+  .section-label { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage); margin-bottom: 14px; }
+  .section-title { font-family: 'Instrument Serif', serif; font-size: clamp(34px, 3.5vw, 50px); line-height: 1.12; letter-spacing: -0.3px; margin-bottom: 56px; max-width: 560px; }
+
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 22px; overflow: hidden; }
+  .step { background: var(--paper); padding: 44px 36px; }
+  .step-num { font-family: 'Instrument Serif', serif; font-size: 60px; color: var(--border); line-height: 1; margin-bottom: 16px; }
+  .step-accent { width: 32px; height: 3px; border-radius: 99px; background: var(--blush); margin-bottom: 18px; }
+  .step h3 { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--ink); }
+  .step p { font-size: 15px; color: #5A5550; line-height: 1.65; font-weight: 300; }
+
+  .quote-strip {
+    background: var(--blush-light);
+    border-top: 1px solid var(--blush);
+    border-bottom: 1px solid var(--blush);
+    padding: 64px 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .quote-text { font-family: 'Instrument Serif', serif; font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 16px; font-style: italic; }
+  .quote-attr { font-size: 11px; font-family: 'Syne', sans-serif; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .audience-card { border-radius: 22px; padding: 48px; position: relative; overflow: hidden; }
+  .audience-card.learner { background: var(--sage-light); border: 1px solid #C4D9CB; }
+  .audience-card.educator { background: var(--blush-light); border: 1px solid #DEB8A8; }
+  .audience-card h3 { font-family: 'Instrument Serif', serif; font-size: 30px; margin-bottom: 6px; color: var(--ink); }
+  .audience-card .sub { font-size: 14px; margin-bottom: 26px; color: var(--muted); font-weight: 300; }
+  .benefit-list { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+  .benefit-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.55; color: #3A3734; }
+  .benefit-list li::before {
+    content: '';
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background-color: var(--sage);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l2.5 2.5L9 1' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .audience-card.educator .benefit-list li::before { background-color: var(--warm); }
+  .big-letter { position: absolute; bottom: -24px; right: 12px; font-family: 'Instrument Serif', serif; font-size: 160px; color: rgba(0,0,0,0.04); line-height: 1; pointer-events: none; font-style: italic; }
+
+  .cta-section {
+    background: var(--ink);
+    margin: 0 80px 80px;
+    border-radius: 28px;
+    padding: 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 500px; height: 280px;
+    background: radial-gradient(ellipse, rgba(232,196,184,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 { font-family: 'Instrument Serif', serif; font-size: clamp(34px, 4vw, 52px); color: var(--paper); margin-bottom: 14px; line-height: 1.12; }
+  .cta-section > p { color: rgba(250,247,242,0.55); font-size: 16px; margin-bottom: 36px; font-weight: 300; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .cta-row { display: flex; justify-content: center; gap: 10px; }
+  .cta-row input { padding: 14px 20px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.07); color: var(--paper); font-family: 'DM Sans', sans-serif; font-size: 15px; width: 270px; outline: none; transition: border-color 0.2s; }
+  .cta-row input::placeholder { color: rgba(255,255,255,0.32); }
+  .cta-row input:focus { border-color: var(--blush); }
+  .cta-row button { padding: 14px 26px; background: var(--sage); color: #fff; border: none; border-radius: 12px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.2s; }
+  .cta-row button:hover { background: #3a6347; }
+  .cta-note { margin-top: 16px; font-size: 12px; color: rgba(250,247,242,0.3); }
+
+  footer { padding: 36px 80px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+
+  .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  .success-msg { display: none; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; margin-top: 12px; color: var(--sage); }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero::before { display: none; }
+    .hero-right { display: none; }
+    .hero-left { padding: 60px 24px; }
+    section { padding: 60px 24px; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .quote-strip { grid-template-columns: 1fr; padding: 40px 24px; gap: 32px; }
+    .cta-section { margin: 0 24px 48px; padding: 48px 24px; }
+    .cta-row { flex-direction: column; align-items: center; }
+    .cta-row input { width: 100%; max-width: 320px; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .divider-band { padding: 18px 24px; gap: 28px; overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">efa<span class="logo-dot">.</span></div>
+  <a href="#waitlist" class="nav-pill">Join the Waitlist</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">Education For All</div>
+    <h1>Money skills,<br/>taught by <em>real people</em><br/>who get it.</h1>
+    <p class="hero-sub">efa connects you with financial educators for real, judgment-free conversations about budgeting, debt, investing, and building the future you want.</p>
+
+    <div class="email-form" id="hero-form">
+      <input type="email" placeholder="your@email.com" id="hero-email"/>
+      <button class="cta-btn" onclick="handleSignup('hero')">Get Early Access</button>
+    </div>
+    <div class="success-msg" id="hero-success">You're on the list. We'll be in touch soon.</div>
+
+    <div class="social-proof">
+      <div class="avatars">
+        <div class="avatar" style="background:#4A7C59;">M</div>
+        <div class="avatar" style="background:#C47C5A;">J</div>
+        <div class="avatar" style="background:#8A8880;">A</div>
+        <div class="avatar" style="background:#4A7C59;">R</div>
+      </div>
+      <span>Join 200+ people already on the waitlist</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="card-stack">
+      <div class="educator-card">
+        <div class="card-avatar" style="background:#4A7C59;">MK</div>
+        <div class="card-name">Marcus K.</div>
+        <div class="card-specialty">Debt payoff and budgeting</div>
+        <div class="card-tags">
+          <span class="tag">Student Loans</span>
+          <span class="tag">Credit Repair</span>
+          <span class="tag">Zero-Based Budget</span>
+        </div>
+        <div class="card-rate">
+          <div><div class="rate-num">$65</div><div class="rate-label">per hour</div></div>
+          <button class="book-btn">Book Session</button>
+        </div>
+      </div>
+      <div class="educator-card">
+        <div class="card-avatar" style="background:#C47C5A;">JP</div>
+        <div class="card-name">Julia P.</div>
+        <div class="card-specialty">First-gen wealth building</div>
+        <div class="card-tags">
+          <span class="tag">Investing Basics</span>
+          <span class="tag">401k</span>
+        </div>
+        <div class="card-rate">
+          <div><div class="rate-num">$80</div><div class="rate-label">per hour</div></div>
+          <button class="book-btn">Book Session</button>
+        </div>
+      </div>
+      <div class="educator-card">
+        <div class="card-avatar" style="background:#8A8880;">AR</div>
+        <div class="card-name">Anika R.</div>
+        <div class="card-specialty">Homebuying for beginners</div>
+        <div class="card-tags">
+          <span class="tag">Mortgages</span>
+          <span class="tag">Down Payment</span>
+        </div>
+        <div class="card-rate">
+          <div><div class="rate-num">$75</div><div class="rate-label">per hour</div></div>
+          <button class="book-btn">Book Session</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-band">
+  <div class="ticker-item"><span class="ticker-dot"></span>Budgeting and Savings</div>
+  <div class="ticker-item"><span class="ticker-dot"></span>Debt Payoff</div>
+  <div class="ticker-item"><span class="ticker-dot"></span>Investing Fundamentals</div>
+  <div class="ticker-item"><span class="ticker-dot"></span>Credit Building</div>
+  <div class="ticker-item"><span class="ticker-dot"></span>Home Buying</div>
+  <div class="ticker-item"><span class="ticker-dot"></span>Retirement Planning</div>
+  <div class="ticker-item"><span class="ticker-dot"></span>Side Income</div>
+</div>
+
+<section>
+  <div class="section-label">How it works</div>
+  <h2 class="section-title">Three steps to your first session</h2>
+  <div class="steps-grid fade-up">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-accent"></div>
+      <h3>Tell us your situation</h3>
+      <p>Answer a few quick questions about your financial goals, your current challenges, and how you learn best. No judgment, just context.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-accent"></div>
+      <h3>Get matched to an educator</h3>
+      <p>We surface educators whose experience and teaching style fit your needs. Browse profiles, read reviews, and book directly.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-accent"></div>
+      <h3>Meet, learn, and move forward</h3>
+      <p>Video sessions happen right inside efa. Message your educator between sessions and track your progress over time.</p>
+    </div>
+  </div>
+</section>
+
+<div class="quote-strip fade-up">
+  <div>
+    <div class="quote-text">"I've always felt too embarrassed to ask basic money questions. I just needed someone patient who had been through it."</div>
+    <div class="quote-attr">Kezia, 29, waitlist member</div>
+  </div>
+  <div>
+    <div class="quote-text">"I know what I know, but I never had a way to share it with people who actually needed it. This felt like the right fit."</div>
+    <div class="quote-attr">Priya, educator beta tester</div>
+  </div>
+  <div>
+    <div class="quote-text">"YouTube gets you started, but it never answers your specific question. A real person does."</div>
+    <div class="quote-attr">Danielle, 34, waitlist member</div>
+  </div>
+</div>
+
+<section style="padding-top: 80px;">
+  <div class="section-label">Who it's for</div>
+  <h2 class="section-title">Built for both sides of the conversation</h2>
+  <div class="two-col fade-up">
+    <div class="audience-card learner">
+      <h3>For Learners</h3>
+      <p class="sub">Financial guidance that actually speaks your language</p>
+      <ul class="benefit-list">
+        <li>Matched to educators based on your real goals, not your zip code</li>
+        <li>Work with people who have lived through similar financial moments</li>
+        <li>Sessions from $40 per hour, a fraction of a traditional advisor</li>
+        <li>Message your educator between sessions with follow-up questions</li>
+        <li>No upsells, no products to buy, just honest education</li>
+      </ul>
+      <div class="big-letter">L</div>
+    </div>
+    <div class="audience-card educator">
+      <h3>For Educators</h3>
+      <p class="sub">Turn what you know into something that helps people</p>
+      <ul class="benefit-list">
+        <li>Set your own hourly rate and availability</li>
+        <li>Get matched with learners who need exactly your experience</li>
+        <li>Built-in scheduling, video, and messaging with no setup required</li>
+        <li>Get paid directly after each session via Stripe</li>
+        <li>Build a reputation and grow a practice on your own terms</li>
+      </ul>
+      <div class="big-letter">E</div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section fade-up" id="waitlist">
+  <h2>Be the first to know<br/>when we launch.</h2>
+  <p>We're building efa in public. Join the waitlist and help shape what we build.</p>
+  <div class="cta-row" id="cta-row">
+    <input type="email" placeholder="your@email.com" id="cta-email"/>
+    <button onclick="handleSignup('cta')">Join the Waitlist</button>
+  </div>
+  <div class="success-msg" id="cta-success" style="color: #A8D5B5;">You're in. We'll reach out soon.</div>
+  <p class="cta-note">No spam. No selling your data. Just updates on our launch.</p>
+</div>
+
+<footer>
+  <div class="logo" style="font-size:20px;">efa<span class="logo-dot" style="font-size:24px;">.</span></div>
+  <div>Education For All &middot; &copy; 2026</div>
+  <div>hello@joinefa.com</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  function handleSignup(source) {
+    const email = document.getElementById(source === 'hero' ? 'hero-email' : 'cta-email').value;
+    if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+    if (source === 'hero') {
+      document.getElementById('hero-form').style.display = 'none';
+    } else {
+      document.getElementById('cta-row').style.display = 'none';
+    }
+    document.getElementById(source + '-success').style.display = 'block';
+  }
+</script>
+</body>
+</html>
