@@ -317,6 +317,46 @@
 
   .success-msg { display: none; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; margin-top: 12px; color: var(--sage); }
 
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 3vw, 42px);
+    color: var(--sage);
+    line-height: 1.1;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: #5A5550;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .stats-note {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+  @media (max-width: 900px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
     .hero { grid-template-columns: 1fr; }
@@ -346,7 +386,7 @@
   <div class="hero-left">
     <div class="eyebrow">Education For All</div>
     <h1>Money skills,<br/>taught by <em>real people</em><br/>who get it.</h1>
-    <p class="hero-sub">efa connects you with financial educators for real, judgment-free conversations about budgeting, debt, investing, and building the future you want.</p>
+    <p class="hero-sub">Most people want to build wealth. Few feel confident doing it alone. efa connects you with financial educators for real, judgment-free conversations about budgeting, debt, investing, and building the future you want.</p>
 
     <div class="email-form" id="hero-form">
       <input type="email" placeholder="your@email.com" id="hero-email" name="email"/>
@@ -362,7 +402,7 @@
         <div class="avatar" style="background:#8A8880;">A</div>
         <div class="avatar" style="background:#4A7C59;">R</div>
       </div>
-      <span>Join 200+ people already on the waitlist</span>
+      <span>Join the waitlist today</span>
     </div>
   </div>
 
@@ -378,7 +418,7 @@
           <span class="tag">Zero-Based Budget</span>
         </div>
         <div class="card-rate">
-          <div><div class="rate-num">$65</div><div class="rate-label">per hour</div></div>
+          <div><div class="rate-label">Financial Educator</div></div>
           <button class="book-btn">Book Session</button>
         </div>
       </div>
@@ -391,7 +431,7 @@
           <span class="tag">401k</span>
         </div>
         <div class="card-rate">
-          <div><div class="rate-num">$80</div><div class="rate-label">per hour</div></div>
+          <div><div class="rate-label">Financial Educator</div></div>
           <button class="book-btn">Book Session</button>
         </div>
       </div>
@@ -404,7 +444,7 @@
           <span class="tag">Down Payment</span>
         </div>
         <div class="card-rate">
-          <div><div class="rate-num">$75</div><div class="rate-label">per hour</div></div>
+          <div><div class="rate-label">Financial Educator</div></div>
           <button class="book-btn">Book Session</button>
         </div>
       </div>
@@ -421,6 +461,30 @@
   <div class="ticker-item"><span class="ticker-dot"></span>Retirement Planning</div>
   <div class="ticker-item"><span class="ticker-dot"></span>Side Income</div>
 </div>
+
+<section style="padding: 80px 80px 0;">
+  <div class="section-label">What the data says</div>
+  <h2 class="section-title">People don&#39;t need more apps.<br/>They need clarity.</h2>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num">75%</div>
+      <div class="stat-label">want to grow their savings</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">63%</div>
+      <div class="stat-label">want help with investing</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">~70%</div>
+      <div class="stat-label">are actively looking for some form of financial guidance</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">1 in 3</div>
+      <div class="stat-label">don&#39;t feel confident managing their money</div>
+    </div>
+  </div>
+  <p class="stats-note">Based on efa user research</p>
+</section>
 
 <section>
   <div class="section-label">How it works</div>
@@ -447,20 +511,7 @@
   </div>
 </section>
 
-<div class="quote-strip fade-up">
-  <div>
-    <div class="quote-text">"I've always felt too embarrassed to ask basic money questions. I just needed someone patient who had been through it."</div>
-    <div class="quote-attr">Kezia, 29, waitlist member</div>
-  </div>
-  <div>
-    <div class="quote-text">"I know what I know, but I never had a way to share it with people who actually needed it. This felt like the right fit."</div>
-    <div class="quote-attr">Priya, educator beta tester</div>
-  </div>
-  <div>
-    <div class="quote-text">"YouTube gets you started, but it never answers your specific question. A real person does."</div>
-    <div class="quote-attr">Danielle, 34, waitlist member</div>
-  </div>
-</div>
+
 
 <section style="padding-top: 80px;">
   <div class="section-label">Who it's for</div>
@@ -472,7 +523,7 @@
       <ul class="benefit-list">
         <li>Matched to educators based on your real goals, not your zip code</li>
         <li>Work with people who have lived through similar financial moments</li>
-        <li>Sessions from $40 per hour, a fraction of a traditional advisor</li>
+        <li>Access educators at a fraction of the cost of traditional financial services</li>
         <li>Message your educator between sessions with follow-up questions</li>
         <li>No upsells, no products to buy, just honest education</li>
       </ul>
