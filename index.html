@@ -318,60 +318,32 @@
   .success-msg { display: none; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; margin-top: 12px; color: var(--sage); }
 
 
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-  .stat-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 32px 24px;
-    text-align: center;
-  }
-  .stat-num {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(28px, 3vw, 42px);
-    color: var(--sage);
-    line-height: 1.1;
-    margin-bottom: 10px;
-    font-style: italic;
-  }
-  .stat-label {
-    font-size: 14px;
-    color: #5A5550;
-    line-height: 1.5;
-    font-weight: 300;
-  }
-  .stats-note {
-    font-size: 12px;
-    color: var(--muted);
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 0;
-  }
   @media (max-width: 900px) {
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
-    .hero { grid-template-columns: 1fr; }
+    nav { padding: 16px 20px; }
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 70px; }
     .hero::before { display: none; }
     .hero-right { display: none; }
-    .hero-left { padding: 60px 24px; }
+    .hero-left { padding: 48px 24px 60px; }
+    .hero-sub { font-size: 15px; }
+    .email-form { flex-direction: column; }
+    .email-form input { width: 100%; }
+    .cta-btn { width: 100%; text-align: center; padding: 14px; }
     section { padding: 60px 24px; }
-    .steps-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: clamp(28px, 7vw, 40px); margin-bottom: 36px; }
+    .steps-grid { grid-template-columns: 1fr; border-radius: 16px; }
+    .step { padding: 32px 24px; }
     .two-col { grid-template-columns: 1fr; }
-    .quote-strip { grid-template-columns: 1fr; padding: 40px 24px; gap: 32px; }
-    .cta-section { margin: 0 24px 48px; padding: 48px 24px; }
+    .audience-card { padding: 32px 24px; }
+    .cta-section { margin: 0 16px 48px; padding: 48px 24px; border-radius: 20px; }
     .cta-row { flex-direction: column; align-items: center; }
-    .cta-row input { width: 100%; max-width: 320px; }
+    .cta-row input { width: 100%; max-width: 100%; }
+    .cta-row button { width: 100%; }
     footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
     .divider-band { padding: 18px 24px; gap: 28px; overflow-x: auto; }
+    .quote-strip { grid-template-columns: 1fr; padding: 40px 24px; gap: 32px; }
+    h1 { font-size: clamp(38px, 9vw, 56px); }
+    .eyebrow { font-size: 10px; }
+    .social-proof { flex-wrap: wrap; }
   }
 </style>
 </head>
@@ -462,29 +434,7 @@
   <div class="ticker-item"><span class="ticker-dot"></span>Side Income</div>
 </div>
 
-<section style="padding: 80px 80px 0;">
-  <div class="section-label">What the data says</div>
-  <h2 class="section-title">People don&#39;t need more apps.<br/>They need clarity.</h2>
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-num">75%</div>
-      <div class="stat-label">want to grow their savings</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">63%</div>
-      <div class="stat-label">want help with investing</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">~70%</div>
-      <div class="stat-label">are actively looking for some form of financial guidance</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">1 in 3</div>
-      <div class="stat-label">don&#39;t feel confident managing their money</div>
-    </div>
-  </div>
-  <p class="stats-note">Based on efa user research</p>
-</section>
+
 
 <section>
   <div class="section-label">How it works</div>
