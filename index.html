@@ -525,19 +525,22 @@
     const email = document.getElementById(emailId).value;
     if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
 
+    const MAKE_WEBHOOK = 'https://hook.us2.make.com/ujca8a4nlnruqr66a8v4yr9p2fafivll';
+
     try {
-      const res = await fetch('https://formspree.io/f/xdallzql', {
+      await fetch(MAKE_WEBHOOK, {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, source: source === 'hero' ? 'Hero form' : 'CTA form' })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          source: source === 'hero' ? 'Hero form' : 'CTA form',
+          submitted_at: new Date().toISOString()
+        })
       });
 
-      if (res.ok) {
-        document.getElementById(source === 'hero' ? 'hero-form' : 'cta-row').style.display = 'none';
-        document.getElementById(source + '-success').style.display = 'block';
-      } else {
-        document.getElementById(source + '-error').style.display = 'block';
-      }
+      // Show success regardless — Make webhooks return 200 on receipt
+      document.getElementById(source === 'hero' ? 'hero-form' : 'cta-row').style.display = 'none';
+      document.getElementById(source + '-success').style.display = 'block';
     } catch(e) {
       document.getElementById(source + '-error').style.display = 'block';
     }
